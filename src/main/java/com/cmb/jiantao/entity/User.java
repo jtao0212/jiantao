@@ -1,8 +1,11 @@
 package com.cmb.jiantao.entity;
 
+import lombok.Data;
+
 /**
  * user实体
  */
+@Data
 public class User {
 
     private String userId;

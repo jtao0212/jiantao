@@ -5,12 +5,12 @@
 <mapper namespace="com.cmb.jiantao.mapper.UserMapper">
 
     <select id="getUserByAge" parameterType="int" resultType="user">
-        select user_id, name, age, address from t_user
+        select userid, name, age, address from t_user
         where age = #{age}
     </select>
 
     <insert id="addUser" parameterType="user">
-        insert into t_user (user_id,name,age,address)
+        insert into t_user (userid,name,age,address)
         value (#{userId},#{name},#{age},#{address})
     </insert>
 
