@@ -5,7 +5,7 @@
 <mapper namespace="com.cmb.jiantao.mapper.UserMapper">
 
     <select id="getUserByAge" parameterType="int" resultType="user">
-        select name, age, address from t_user
+        select user_id, name, age, address from t_user
         where age = #{age}
     </select>
 

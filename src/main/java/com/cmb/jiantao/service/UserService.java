@@ -10,5 +10,5 @@ public interface UserService {
      */
     List<User> getUserByAge(int age);
 
-    String addUser(User user);
+    void addUser(User user);
 }

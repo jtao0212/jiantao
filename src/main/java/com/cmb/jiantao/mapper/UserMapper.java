@@ -12,5 +12,5 @@ public interface UserMapper {
 
     List<User> getUserByAge(int age);
 
-    String addUser(User user);
+    void addUser(User user);
 }
