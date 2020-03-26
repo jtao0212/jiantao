@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/jiantao??useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: taojian
+    driver-class-name: com.mysql.jdbc.Driver
+#mybatis配置
+mybatis:
+  typeAliasesPackage: com.cmb.jiantao
+  mapperLocations: classpath:mapper/*.xml
+  #configLocation: classpath:/mybatis-config.xml
