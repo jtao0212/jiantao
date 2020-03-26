@@ -27,7 +27,7 @@ public class CanalClient {
         CanalConnector canalConnector = CanalConnectors.newSingleConnector(new InetSocketAddress(SERVER_ADDRESS, PORT), DESTINATION, USERNAME, PASSWORD);
         canalConnector.connect();
         canalConnector.subscribe(".*\\..*");
-        for (; ; ) {
+        while (true) {
             Message message = canalConnector.getWithoutAck(100);
             long batchId = message.getId();
             if (batchId != -1) {
@@ -47,7 +47,6 @@ public class CanalClient {
                 for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                     switch (rowChange.getEventType()) {
                         case INSERT:
-                            String tableName = entry.getHeader().getTableName();
                             User insertUser = CanalDataHandler.ConvertToBean(rowData.getAfterColumnsList(), User.class);
                             System.out.println(insertUser);
                             System.out.println("This is insert!\n");
