@@ -1,12 +1,15 @@
 package com.cmb.jiantao.canal;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.cmb.jiantao.entity.User;
+import com.cmb.jiantao.kafka.KfkProducer;
 import com.cmb.jiantao.utils.CanalDataHandler;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -23,6 +26,8 @@ public class CanalClient {
 
     private static String PASSWORD = "";
 
+    private static String TOPIC = "jiantao";
+
     public static void main(String[] args) {
         CanalConnector canalConnector = CanalConnectors.newSingleConnector(new InetSocketAddress(SERVER_ADDRESS, PORT), DESTINATION, USERNAME, PASSWORD);
         canalConnector.connect();
@@ -38,6 +43,7 @@ public class CanalClient {
     }
 
     private static void printEntity(List<CanalEntry.Entry> entries) {
+        KfkProducer producer = new KfkProducer();
         for (CanalEntry.Entry entry : entries) {
             if (entry.getEntryType() != CanalEntry.EntryType.ROWDATA) {
                 continue;
@@ -49,16 +55,18 @@ public class CanalClient {
                         case INSERT:
                             User insertUser = CanalDataHandler.ConvertToBean(rowData.getAfterColumnsList(), User.class);
                             System.out.println(insertUser);
+                            producer.sendMsg(new ProducerRecord(TOPIC, "INSERT", JSON.toJSONString(insertUser)));
                             System.out.println("This is insert!\n");
-                            break;
                         case DELETE:
                             User deleteUser = CanalDataHandler.ConvertToBean(rowData.getBeforeColumnsList(), User.class);
                             System.out.println(deleteUser);
+                            producer.sendMsg(new ProducerRecord(TOPIC, "INSERT", JSON.toJSONString(deleteUser)));
                             System.out.println("This is delete!\n");
                             break;
                         case UPDATE:
                             User updateUser = CanalDataHandler.ConvertToBean(rowData.getAfterColumnsList(), User.class);
                             System.out.println(updateUser);
+                            producer.sendMsg(new ProducerRecord(TOPIC, "INSERT", JSON.toJSONString(updateUser)));
                             System.out.println("This is update!\n");
                             break;
                         default:
