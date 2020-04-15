@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cmb.jiantao.mapper.UserMapper">
 
-    <select id="getUserByAge" parameterType="int" resultType="user">
-        select userid, name, age, address from t_user
-        where age = #{age}
+    <select id="getUserByAge" resultType="user">
+        select userid, name, age, address, time from t_user
+        where 1=1
+        <if test="name != '' and name != null">
+           and name = #{name}
+        </if>
     </select>
 
     <insert id="addUser" parameterType="user">

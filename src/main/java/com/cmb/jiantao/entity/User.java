@@ -2,6 +2,8 @@ package com.cmb.jiantao.entity;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * user实体
  */
@@ -15,6 +17,16 @@ public class User {
     private Integer age;
 
     private String address;
+
+    private Timestamp time;
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
     public String getUserId() {
         return userId;

@@ -8,7 +8,7 @@ public interface UserService {
     /**
      * 根据年龄获取用户列表
      */
-    List<User> getUserByAge(int age);
+    List<User> getUserByAge(String name);
 
     void addUser(User user);
 }

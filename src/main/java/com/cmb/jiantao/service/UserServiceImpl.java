@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public List<User> getUserByAge(int age) {
-        return userMapper.getUserByAge(age);
+    public List<User> getUserByAge(String name) {
+        return userMapper.getUserByAge(name);
     }
 
     @Override
     public void addUser(User user) {
-         userMapper.addUser(user);
+        userMapper.addUser(user);
     }
 }
